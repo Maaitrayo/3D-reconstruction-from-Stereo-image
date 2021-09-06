@@ -29,6 +29,9 @@ img_right = cv2.imread(right_img_path)
 #cv2.imshow('left image', img_left)
 #cv2.imshow('right image', img_right)
 
+block = 15
+P1 = block * block * 8
+P2 = block * block * 32
 disparityEngine = cv2.StereoSGBM_create(0, 96, 9, 8 * 9 * 9, 32 * 9 * 9, 1, 63, 10, 100, 32)
 disparity = disparityEngine.compute(img_left, img_right).astype(np.float32)
 ImT1_disparityA = np.divide(disparity, 255.0)
@@ -49,16 +52,16 @@ left_img_points = np.zeros([total_points_left,2])
 right_img_points = np.zeros([total_points_left,2])
 
 for r in range(rows_left):
-    for c in range(columns_left):
-        left_img_points[z_left][0] = c
-        left_img_points[z_left][1] = r
-        z_left=z_left+1
+	for c in range(columns_left):
+		left_img_points[z_left][0] = c
+		left_img_points[z_left][1] = r
+		z_left=z_left+1
 
 for r in range(rows_right):
-    for c in range(columns_right):
-        right_img_points[z_right][0] = c
-        right_img_points[z_right][1] = r
-        z_right=z_right+1
+	for c in range(columns_right):
+		right_img_points[z_right][0] = c
+		right_img_points[z_right][1] = r
+		z_right=z_right+1
 
 print(left_img_points)
 print(len(right_img_points))
